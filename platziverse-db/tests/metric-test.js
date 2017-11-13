@@ -64,21 +64,21 @@ let newMetric = {
   type: 'light',
   value: '20 lumens',
   createdAt: new Date(),
-  updatedAt: new Date(),
+  updatedAt: new Date()
 }
 
 let newMetricWithAgentId = {
-  agentId : agentId, 
+  agentId: agentId,
   type: 'light',
   value: '20 lumens',
   createdAt: new Date(),
-  updatedAt: new Date(),
+  updatedAt: new Date()
 }
 
 let agentArgs = {
-    where: {
-      uuid
-    }
+  where: {
+    uuid
+  }
 }
 
 test.beforeEach(async () => {
@@ -105,13 +105,12 @@ test.beforeEach(async () => {
   // Model findByTypeAgentUuid Stub
   MetricStub.findByTypeAgentUuid = sandbox.stub()
   MetricStub.findByTypeAgentUuid.withArgs(type, uuid).returns(Promise.resolve(metricFixtures.byTypeAgentUuid(type, uuid)))
-  
+
   // Model create Stub
   MetricStub.create = sandbox.stub()
   MetricStub.create.withArgs(newMetric).returns(Promise.resolve({
-    toJSON () {return Object.assign(newMetric, {agentId: agentId})}
+    toJSON () { return Object.assign(newMetric, {agentId: agentId}) }
   }))
-
 
   const setupDatabase = proxyquire('../', {
     './models/agent': () => AgentStub,
@@ -148,11 +147,15 @@ test.serial('Metric#findByTypeAgentUuid', async t => {
 })
 
 test.serial('Metric#create', async t => {
- let metric = await db.Metric.create(uuid, newMetric)
+  let metric = await db.Metric.create(uuid, newMetric)
 
- t.true(AgentStub.findOne.called, 'findOne should be called on Model')
- t.true(AgentStub.findOne.calledOnce, 'findOne should be called once')
- t.true(AgentStub.findOne.calledWith(oneAgentArgs),'findOne should be called with specified agentId')
- 
- t.deepEqual(metric, newMetricWithAgentId, 'Should be the same Metric')
+  t.true(AgentStub.findOne.called, 'findOne should be called on Model')
+  t.true(AgentStub.findOne.calledOnce, 'findOne should be called once')
+  t.true(AgentStub.findOne.calledWith(oneAgentArgs), 'findOne should be called with specified agentId')
+
+  t.true(MetricStub.create.called, 'create should be called on model')
+  t.true(MetricStub.create.calledOnce, 'create should be called once')
+  t.true(MetricStub.create.calledWith(newMetric), 'create should be called with specified args')
+
+  t.deepEqual(metric, newMetricWithAgentId, 'Should be the same Metric')
 })
