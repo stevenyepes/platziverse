@@ -1,0 +1,37 @@
+version: '3.2'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: jsteven
+      POSTGRES_PASSWORD: jsteven
+      POSTGRES_DB: platziverse
+  app-mqtt:
+    build: ./platziverse-mqtt
+    ports: 
+      - 1883:1883
+    depends_on: 
+      - redis
+      - db
+    links:
+      - redis
+      - db
+    volumes:
+      - type: volume
+        source: .
+        target: /usr/src/app
+
+  redis:
+    image: "redis"
+  
+  app-agent:
+    build: ./platziverse-agent/
+    depends_on: 
+      - app-mqtt
+    links:
+      - app-mqtt
+    volumes:
+      - type: volume
+        source: .
+        target: /usr/src/app

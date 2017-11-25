@@ -8,7 +8,7 @@ const db = require('./')
 const prompt = inquirer.createPromptModule()
 async function setup () {
   
-  if (process.argv.pop() !== '--y') {
+  if (process.argv[2] !== '--y') {
     const answer = await prompt({
       type: 'confirm',
       name: 'setup',
@@ -23,7 +23,7 @@ async function setup () {
     database: process.env.DB_NAME || 'platziverse',
     username: process.env.DB_USER || 'jsteven',
     password: process.env.DB_PASS || 'jsteven',
-    host: process.env.DB_HOST || '192.168.1.25',
+    host: process.env.DB_HOST || 'db',
     dialect: 'postgres',
     logging: s => debug(s),
     setup: true
