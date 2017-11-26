@@ -15,7 +15,7 @@ const options = {
   username: 'platzi',
   interval: 5000,
   mqtt: {
-    host: 'mqtt://app-mqtt'
+    host: 'mqtt://app_mqtt'
   }
 }
 

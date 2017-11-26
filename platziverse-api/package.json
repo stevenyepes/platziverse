@@ -1,0 +1,34 @@
+{
+  "name": "platziverse-api",
+  "version": "1.0.0",
+  "description": "A simple IoT platform API",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "lint": "standard",
+    "start-dev": "DEBUG=platziverse:* nodemon -L server.js",
+    "test": "DEBUG=platziverse:* ava tests/ --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevenyepes/platziverse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevenyepes/platziverse/issues"
+  },
+  "homepage": "https://github.com/stevenyepes/platziverse#readme",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "debug": "^3.1.0",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "ava": "^0.23.0",
+    "nodemon": "^1.12.1",
+    "standard": "^10.0.3",
+    "supertest": "^3.0.0"
+  }
+}

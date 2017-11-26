@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: jsteven
       POSTGRES_PASSWORD: jsteven
       POSTGRES_DB: platziverse
-  app-mqtt:
+  app_mqtt:
     build: ./platziverse-mqtt
     ports: 
       - 1883:1883
@@ -25,13 +25,23 @@ services:
   redis:
     image: "redis"
   
-  app-agent:
+  app_agent:
     build: ./platziverse-agent/
     depends_on: 
-      - app-mqtt
+      - app_mqtt
     links:
-      - app-mqtt
+      - app_mqtt
     volumes:
       - type: volume
         source: .
         target: /usr/src/app
+
+  app_api:
+      build: ./platziverse-api/
+      ports:
+        - 3000:3000
+      volumes:
+        - type: volume
+          source: .
+          target: /usr/src/app
+
