@@ -26,6 +26,7 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
       order: [['createdAt', 'DESC']],
       include: [{
         attributes: [],
+        model: AgentModel,
         where: {
           uuid
         }

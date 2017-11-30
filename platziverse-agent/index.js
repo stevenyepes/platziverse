@@ -19,6 +19,8 @@ const options = {
   }
 }
 
+console.log(options)
+
 class PlatziverseAgent extends EventEmiter {
   constructor (opts) {
     super()
